@@ -39,7 +39,7 @@ from dnsdist_console import Key
 
 k = Key().generate()
 print(k)
-HqPGGX1/yoL0Qa5fuwpy5BxbEUQ4GXS57e/fadQ+1UI=
+OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
 ```
 
 Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
