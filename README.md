@@ -13,9 +13,9 @@ This is a Python client for the dnsdist console
 
 ## Table of contents
 * [Installation](#installation)
+* [Generate key](#generate-key)
 * [Authentication](#authentication)
 * [Send command to the console](#send-command-to-the-console)
-* [Generate key](#generate-key)
 
 ## Installation
 
@@ -28,7 +28,21 @@ pip install dnsdist_console
 ```python
 from dnsdist_console import Console
 ```
- 
+
+## Generate key
+
+Generate a shared secret key.
+It will be used between the client and the server.
+
+```python
+from dnsdist_console import Key
+
+k = Key().generate()
+print(k)
+```
+
+Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
+
 ## Send command to the console
 
 ```python
@@ -44,13 +58,4 @@ console = Console(host=console_ip,
             
 o = console.send_command(cmd="showVersion()")
 print(o)
-```
-
-## Generate key
-
-```python
-from dnsdist_console import Key
-
-k = Key().generate()
-print(k)
 ```
