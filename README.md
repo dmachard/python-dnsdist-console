@@ -39,6 +39,7 @@ from dnsdist_console import Key
 
 k = Key().generate()
 print(k)
+HqPGGX1/yoL0Qa5fuwpy5BxbEUQ4GXS57e/fadQ+1UI=
 ```
 
 Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
@@ -58,4 +59,6 @@ console = Console(host=console_ip,
             
 o = console.send_command(cmd="showVersion()")
 print(o)
+dnsdist 1.4.0
+
 ```
