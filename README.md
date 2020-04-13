@@ -9,7 +9,7 @@
 | PyPI |  https://pypi.org/project/dnsdist_console/ |
 | | |
 
-This is a Python client for the dnsdist console
+This is a Python 3 client for the dnsdist console
 
 ## Table of contents
 * [Installation](#installation)
@@ -20,7 +20,7 @@ This is a Python client for the dnsdist console
 ## Installation
 
 ```python
-pip install dnsdist_console
+pip3 install dnsdist_console
 ```
 
 ## Authentication
