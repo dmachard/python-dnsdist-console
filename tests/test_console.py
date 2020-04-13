@@ -12,3 +12,6 @@ console = Console(host=console_ip,
             
 o = console.send_command(cmd="showVersion()")
 print(o)
+
+o = console.send_command(cmd="showServers()")
+print(o)
