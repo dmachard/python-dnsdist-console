@@ -14,19 +14,13 @@ This is a Python 3 client for the dnsdist console
 ## Table of contents
 * [Installation](#installation)
 * [Generate key](#generate-key)
-* [Authentication](#authentication)
-* [Send command to the console](#send-command-to-the-console)
+* [Handshake](#handshake)
+* [Run command](#run-command)
 
 ## Installation
 
 ```python
-pip3 install dnsdist_console
-```
-
-## Authentication
-
-```python
-from dnsdist_console import Console
+pip install dnsdist_console
 ```
 
 ## Generate key
@@ -44,7 +38,7 @@ OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
 
 Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
 
-## Send command to the console
+## Handshake
 
 ```python
 from dnsdist_console import Console
@@ -56,7 +50,13 @@ console_key = "GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag="
 console = Console(host=console_ip,
                   port=console_port, 
                   key=console_key)
-            
+```
+
+## Run command
+
+Please refer to the dnsdist documentation for available commands.
+
+```python
 o = console.send_command(cmd="showVersion()")
 print(o)
 dnsdist 1.4.0
