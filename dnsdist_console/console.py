@@ -90,6 +90,8 @@ class Console:
 
         # waiting to response response according to the response size
         data = self.sock.recv(response_size)
+        while len(data) < response_size:
+            data += self.sock.recv(response_size - len(data))
 
         # decrypt data
         r = self.decrypt_response(data, self.nonce_r)
