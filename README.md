@@ -38,7 +38,18 @@ print(k)
 OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
 ```
 
+The command in one line 
+
+```bash
+python3 -c "from dnsdist_console import Key;print(Key().generate())"
+```
+
 Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
+
+```
+controlSocket('0.0.0.0:5199')
+setKey("GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
+```
 
 ## Handshake
 
