@@ -19,6 +19,7 @@ This is a Python 3 client for the dnsdist console
 * [Handshake](#handshake)
 * [Run command](#run-command)
 * [Get statistics](#get-statistics)
+* [Display dashboard](#display-dashboard)
 
 ## Installation
 
@@ -109,4 +110,35 @@ print(stats)
 'self-answered': '0', 'latency-count': '0', 'servfail-responses': '0', 
 'latency-slow': '0', 'special-memory-usage': '61931520', 'latency-sum': '0', 
 'trunc-failures': '0', 'uptime': '534'}
+```
+
+## Display dashboard
+
+Display dashboard for dnsdist from command line
+
+```python
+from dnsdist_console import Console
+from dnsdist_console import Dashboard
+
+# dnsdist console
+console_ip = "10.0.0.27"
+console_port = 5199
+console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
+
+c = Console(host=console_ip, port=console_port, key=console_key)
+
+print(Dashboard(console=c).show())
+Dashboard for dnsdist
+
+Uptime (seconds): 2402
+Number of queries: 85
+Query per second: 0
+ACL drops: 0
+Dynamic drops: 0
+Rule drops: 0
+CPU Usage: --
+Cache hitrate: 0
+CPU Usage (%s): 1.1
+
+Ctrl+C to exit
 ```
