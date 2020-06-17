@@ -141,9 +141,8 @@ Query per second: 0
 ACL drops: 0
 Dynamic drops: 0
 Rule drops: 0
-CPU Usage: --
-Cache hitrate: 0
 CPU Usage (%s): 1.1
+Cache hitrate: 0
 
 Ctrl+C to exit
 ```

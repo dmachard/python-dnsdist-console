@@ -22,7 +22,7 @@ class Dashboard:
                     "ACL drops": "--",
                     "Dynamic drops": "--",
                     "Rule drops": "--",
-                    "CPU Usage": "--",
+                    "CPU Usage (%s)": "--",
                     "Cache hitrate": "--"
                 }
 
