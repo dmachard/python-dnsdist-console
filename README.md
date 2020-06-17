@@ -128,6 +128,11 @@ console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
 c = Console(host=console_ip, port=console_port, key=console_key)
 
 print(Dashboard(console=c).show())
+```
+
+Dashboard overview
+
+```bash
 Dashboard for dnsdist
 
 Uptime (seconds): 2402
