@@ -6,12 +6,12 @@
 
 | | |
 | ------------- | ------------- |
-| Author |  Denis Machard <d.machard@gmail.com> |
+| Author |  Denis Machard <d.machard@gmail.com> 
 | License |  MIT | 
 | PyPI |  https://pypi.org/project/dnsdist_console/ |
 | | |
 
-This is a Python 3 client for the dnsdist console
+This is a Python 3 client for the dnsdist console.
 
 ## Table of contents
 * [Installation](#installation)
@@ -218,7 +218,7 @@ JSON output example
 
 ## Display dashboard
 
-Display dashboard for dnsdist from command line
+Display dashboard for dnsdist from command line, updated every second.
 
 ```python
 from dnsdist_console import Console
