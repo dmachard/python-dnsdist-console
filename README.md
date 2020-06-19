@@ -249,11 +249,11 @@ Global:
         CPU Usage (%s): 3.2
         Cache hitrate: 0
 Servers:
-        #0 / -- / dns_interco
+        #0 / -- / dns_others
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0
-        #1 / -- / dns_si
+        #1 / -- / dns_internal
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0
@@ -261,7 +261,7 @@ Servers:
                 Number of queries: 68
                 Query per second: 0.0
                 Number of drops: 2
-        #3 / toto aaaaabbb / --
+        #3 / dns_rpz / --
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0
