@@ -3,6 +3,7 @@ from dnsdist_console import statistics
 
 import time
 import sys
+import json
 
 class Dashboard:
     def __init__(self, console):
@@ -37,21 +38,23 @@ class Dashboard:
             try:
                 # get stats from dnsdist
                 stats = self.stats_console.get_jsonstats()
+                stats_json = json.loads(stats)
+                global_stats = stats_json["global"]
                 
-                qps = int(stats["queries"]) - prev_queries
-                prev_queries = int(stats["queries"])
-                cpu = (int(stats["cpu-sys-msec"])+int(stats["cpu-user-msec"]) - prev_cpu_sys - prev_cpu_user) / 10
-                prev_cpu_sys = int(stats["cpu-sys-msec"])
-                prev_cpu_user = int(stats["cpu-user-msec"])
+                qps = int(global_stats["queries"]) - prev_queries
+                prev_queries = int(global_stats["queries"])
+                cpu = (int(global_stats["cpu-sys-msec"])+int(global_stats["cpu-user-msec"]) - prev_cpu_sys - prev_cpu_user) / 10
+                prev_cpu_sys = int(global_stats["cpu-sys-msec"])
+                prev_cpu_user = int(global_stats["cpu-user-msec"])
             
-                lines["Uptime (seconds)"] = stats["uptime"]
-                lines["Number of queries"] = stats["queries"]
+                lines["Uptime (seconds)"] = global_stats["uptime"]
+                lines["Number of queries"] = global_stats["queries"]
                 lines["Query per second"] = qps
                 lines["CPU Usage (%s)"] = cpu
-                lines["ACL drops"] = stats["acl-drops"]
-                lines["Rule drops"] = stats["rule-drop"]
-                lines["Cache hitrate"] = stats["cache-hits"]
-                lines["Dynamic drops"] = stats["dyn-blocked"]
+                lines["ACL drops"] = global_stats["acl-drops"]
+                lines["Rule drops"] = global_stats["rule-drop"]
+                lines["Cache hitrate"] = global_stats["cache-hits"]
+                lines["Dynamic drops"] = global_stats["dyn-blocked"]
                 
                 # move up cursor and delete whole line
                 sys.stdout.write("\x1b[1A\x1b[2K") 

@@ -1,4 +1,4 @@
-__version__ = "0.5.1"
+__version__ = "1.0.0"
 
 from dnsdist_console.console import Console
 from dnsdist_console.key import Key
