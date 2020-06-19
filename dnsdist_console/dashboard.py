@@ -27,12 +27,13 @@ class Dashboard:
                     "Cache hitrate": "--"
                 }
 
-        sys.stdout.write("\033[1mDashboard for dnsdist\033[0m\n")
-        sys.stdout.write("\n")
-        for k,v in lines.items():
-            sys.stdout.write("%s: %s\n" % (k,v))
-        sys.stdout.write("\n")
-        sys.stdout.write("Ctrl+C to exit\n")
+        # sys.stdout.write("\033[1mDashboard for dnsdist\033[0m\n")
+        # sys.stdout.write("\n")
+        # sys.stdout.write("Global:\n")
+        # for k,v in lines.items():
+            # sys.stdout.write("\t%s: %s\n" % (k,v))
+        # sys.stdout.write("\n")
+        # sys.stdout.write("Ctrl+C to exit\n")
              
         while True:
             try:
@@ -55,23 +56,43 @@ class Dashboard:
                 lines["Rule drops"] = global_stats["rule-drop"]
                 lines["Cache hitrate"] = global_stats["cache-hits"]
                 lines["Dynamic drops"] = global_stats["dyn-blocked"]
-                
-                # move up cursor and delete whole line
-                sys.stdout.write("\x1b[1A\x1b[2K") 
-                sys.stdout.write("\x1b[1A\x1b[2K")
-                for k,v in lines.items():
-                    sys.stdout.write("\x1b[1A\x1b[2K") 
-                sys.stdout.write("\x1b[1A\x1b[2K") 
-                sys.stdout.write("\x1b[1A\x1b[2K")
-                
+
                 # reprint the lines    
                 sys.stdout.write("\033[1mDashboard for dnsdist\033[0m\n")
                 sys.stdout.write("\n")
+                sys.stdout.write("Global:\n")
                 for k,v in lines.items():
-                    sys.stdout.write("%s: %s\n" % (k,v))
+                    sys.stdout.write("\t%s: %s\n" % (k,v))
+                sys.stdout.write("Servers:\n")
+                for s in stats_json["servers"]:
+                    if not len(s["name"]):
+                        s["name"] = "--"
+                    if not len(s["pools"]):
+                        s["pools"] = "--"
+                    sys.stdout.write("\t#%s / %s / %s\n" % (s["#"],s["name"],s["pools"]) )
+                    sys.stdout.write("\t\tNumber of queries: %s\n" % s["#"])
+                    sys.stdout.write("\t\tQuery per second: %s\n" % s["queries"])
+                    sys.stdout.write("\t\tNumber of drops: %s\n" % s["drops"])
                 sys.stdout.write("\n")
                 sys.stdout.write("Ctrl+C to exit\n")
         
                 time.sleep(1)
+                
+                
+                # move up cursor and delete whole line
+                sys.stdout.write("\x1b[1A\x1b[2K") 
+                sys.stdout.write("\x1b[1A\x1b[2K")
+                sys.stdout.write("\x1b[1A\x1b[2K")
+                for k,v in lines.items():
+                    sys.stdout.write("\x1b[1A\x1b[2K") 
+                sys.stdout.write("\x1b[1A\x1b[2K")
+                for s in stats_json["servers"]:
+                    sys.stdout.write("\x1b[1A\x1b[2K")
+                    sys.stdout.write("\x1b[1A\x1b[2K") 
+                    sys.stdout.write("\x1b[1A\x1b[2K") 
+                    sys.stdout.write("\x1b[1A\x1b[2K")
+                sys.stdout.write("\x1b[1A\x1b[2K")
+                sys.stdout.write("\x1b[1A\x1b[2K")
+                    
             except KeyboardInterrupt:
                 break

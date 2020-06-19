@@ -239,14 +239,32 @@ Dashboard overview
 ```bash
 Dashboard for dnsdist
 
-Uptime (seconds): 2402
-Number of queries: 85
-Query per second: 0
-ACL drops: 0
-Dynamic drops: 0
-Rule drops: 0
-CPU Usage (%s): 1.1
-Cache hitrate: 0
+Global:
+        Uptime (seconds): 11887
+        Number of queries: 68
+        Query per second: 0
+        ACL drops: 0
+        Dynamic drops: 0
+        Rule drops: 0
+        CPU Usage (%s): 3.4
+        Cache hitrate: 0
+Servers:
+        #0 / -- / dns_other
+                Number of queries: 0
+                Query per second: 0
+                Number of drops: 0
+        #1 / -- / dns_internal
+                Number of queries: 1
+                Query per second: 0
+                Number of drops: 0
+        #2 / -- / dns_internet
+                Number of queries: 2
+                Query per second: 68
+                Number of drops: 2
+        #3 / dns / --
+                Number of queries: 3
+                Query per second: 0
+                Number of drops: 0
 
 Ctrl+C to exit
 ```
