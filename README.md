@@ -69,7 +69,7 @@ console = Console(host=console_ip,
 
 ## Run command
 
-Please refer to the [dnsdist documentation](https://dnsdist.org/reference/config.html) for available commands.
+Please refer to the [dnsdist documentation](https://dnsdist.org/reference/config.html) for all available commands.
 
 ```python
 o = console.send_command(cmd="showVersion()")
@@ -86,10 +86,12 @@ Statistics are stored in a python dictionary.
 ```python
 from dnsdist_console import Statistics
 
-print(Statistics(console=console))
+s = Statistics(console=console)
+print(s["global"]["queries"])
+3993
 ```
 
-Statistics list of keys:
+Statistics available:
 
 - globals (dict):
     - acl-drops: Number of packets dropped because of the ACL
@@ -140,9 +142,9 @@ Statistics list of keys:
     - \#: The number of the server
     - name: The name associated to this backend
     - address: The IP address and port of the server
-    - state: Whether this backend is up (1) or down (0)
+    - state: backend is up or down
     - qps: Current number of queries per second
-    - qlim: M   aximum number of queries per second
+    - qlim: Maximum number of queries per second
     - ord: The order in which this server is picked
     - wt: The weight within the order in which this server is picked
     - queries: Amount of queries relayed to server

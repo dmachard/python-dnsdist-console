@@ -1,5 +1,5 @@
 
-from dnsdist_console import statistics
+from dnsdist_console import Statistics
 
 import time
 import sys
@@ -7,8 +7,8 @@ import sys
 class Dashboard:
     def __init__(self, console):
         """statistics class"""
-        self.stats_c = statistics.Statistics(console=console)
-        
+        self.console = console
+     
         self.show()
         
     def show(self):
@@ -31,7 +31,7 @@ class Dashboard:
         while True:
             try:
                 # get stats from dnsdist
-                stats = self.stats_c.get()
+                stats = Statistics(console=self.console)
                 global_stats = stats["global"]
                 
                 qps = int(global_stats["queries"]) - prev_queries
@@ -86,5 +86,6 @@ class Dashboard:
                 sys.stdout.write("\x1b[1A\x1b[2K")
                 sys.stdout.write("\x1b[1A\x1b[2K")
                     
+                del stats
             except KeyboardInterrupt:
                 break
