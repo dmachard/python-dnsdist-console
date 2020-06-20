@@ -7,7 +7,4 @@ console_port = 5199
 console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
 
 c = Console(host=console_ip, port=console_port, key=console_key)
-s = Statistics(console=c)
-                  
-stats = s.get_jsonstats()
-print(stats)
+print(Statistics(console=c))

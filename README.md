@@ -80,130 +80,13 @@ dnsdist 1.4.0
 
 ## Get statistics
 
-Get statistics from dnsdist
+Use this module to extract some statistics on your dnsdist load balancer.
 
 ```python
 from dnsdist_console import Statistics
 
-print(Statistics(console=console).get())
-```
-
-Statistics are available as dictionnary.
-
-```json
-{
-  "global": {
-    "acl-drops": "0",
-    "latency0-1": "0",
-    "cache-hits": "0",
-    "latency1-10": "0",
-    "cache-misses": "0",
-    "latency10-50": "0",
-    "cpu-sys-msec": "6010",
-    "latency100-1000": "0",
-    "cpu-user-msec": "39325",
-    "latency50-100": "0",
-    "downstream-send-errors": "0",
-    "no-policy": "0",
-    "downstream-timeouts": "0",
-    "noncompliant-queries": "0",
-    "dyn-block-nmg-size": "0",
-    "noncompliant-responses": "0",
-    "dyn-blocked": "0",
-    "queries": "0",
-    "empty-queries": "0",
-    "rdqueries": "0",
-    "fd-usage": "24",
-    "real-memory-usage": "1140137984",
-    "frontend-noerror": "0",
-    "responses": "0",
-    "frontend-nxdomain": "0",
-    "rule-drop": "0",
-    "frontend-servfail": "0",
-    "rule-nxdomain": "0",
-    "latency-avg100": "0.0",
-    "rule-refused": "0",
-    "latency-avg1000": "0.0",
-    "rule-servfail": "0",
-    "latency-avg10000": "0.0",
-    "security-status": "0",
-    "latency-avg1000000": "0.0",
-    "self-answered": "0",
-    "latency-count": "0",
-    "servfail-responses": "0",
-    "latency-slow": "0",
-    "special-memory-usage": "84602880",
-    "latency-sum": "0",
-    "trunc-failures": "0",
-    "uptime": "9973"
-  },
-  "backends": [
-    {
-      "#": "0",
-      "name": "",
-      "address": "10.0.0.140:53",
-      "state": "UP",
-      "qps": "0.0",
-      "qlim": "0",
-      "ord": "1",
-      "wt": "1",
-      "queries": "0",
-      "drops": "0",
-      "drate": "0.0",
-      "lat": "0.0",
-      "outstanding": "0",
-      "pools": "dns_other"
-    },
-    {
-      "#": "1",
-      "name": "",
-      "address": "10.0.0.55:53",
-      "state": "UP",
-      "qps": "0.0",
-      "qlim": "0",
-      "ord": "1",
-      "wt": "1",
-      "queries": "0",
-      "drops": "0",
-      "drate": "0.0",
-      "lat": "0.0",
-      "outstanding": "0",
-      "pools": "dns_internal"
-    },
-    {
-      "#": "2",
-      "name": "",
-      "address": "8.8.8.8:53",
-      "state": "UP",
-      "qps": "0.0",
-      "qlim": "0",
-      "ord": "1",
-      "wt": "1",
-      "queries": "0",
-      "drops": "0",
-      "drate": "0.0",
-      "lat": "0.0",
-      "outstanding": "0",
-      "pools": "dns_internet"
-    },
-    {
-      "#": "3",
-      "name": "dns1",
-      "address": "1.1.1.1:53",
-      "state": "up",
-      "qps": "0.0",
-      "qlim": "0",
-      "ord": "1",
-      "wt": "1",
-      "queries": "0",
-      "drops": "0",
-      "drate": "0.0",
-      "lat": "0.0",
-      "outstanding": "0",
-      "pools": ""
-    }
-  ]
-}
+print(Statistics(console=console))
+{'global': {'acl-drops': '0', 'latency0-1': '0', 'cache-hits': '0', 'latency1-10': '0', 'cache-misses': '0', 'latency10-50': '0', 'cpu-sys-msec': '60748', 'latency100-1000': '0', 'cpu-user-msec': '85918', 'latency50-100': '0', 'downstream-send-errors': '0', 'no-policy': '0', 'downstream-timeouts': '0', 'noncompliant-queries': '0', 'dyn-block-nmg-size': '0', 'noncompliant-responses': '0', 'dyn-blocked': '0', 'queries': '0', 'empty-queries': '0', 'rdqueries': '0', 'fd-usage': '26', 'real-memory-usage': '1224421376', 'frontend-noerror': '0', 'responses': '0', 'frontend-nxdomain': '0', 'rule-drop': '0', 'frontend-servfail': '0', 'rule-nxdomain': '0', 'latency-avg100': '0.0', 'rule-refused': '0', 'latency-avg1000': '0.0', 'rule-servfail': '0', 'latency-avg10000': '0.0', 'security-status': '0', 'latency-avg1000000': '0.0', 'self-answered': '0', 'latency-count': '0', 'servfail-responses': '0', 'latency-slow': '0', 'special-memory-usage': '83423232', 'latency-sum': '0', 'trunc-failures': '0', 'uptime': '67846'}, 'backends': [{'#': '0', 'name': '', 'address': '10.0.0.140:53', 'state': 'UP', 'qps': '0.0', 'qlim': '0', 'ord': '1', 'wt': '1', 'queries': '0', 'drops': '0', 'drate': '0.0', 'lat': '0.0', 'outstanding': '0', 'pools': 'dns_others'}, {'#': '1', 'name': '', 'address': '10.0.0.55:53', 'state': 'UP', 'qps': '0.0', 'qlim': '0', 'ord': '1', 'wt': '1', 'queries': '0', 'drops': '0', 'drate': '0.0', 'lat': '0.0', 'outstanding': '0', 'pools': 'dns_internal'}, {'#': '2', 'name': '', 'address': '8.8.8.8:53', 'state': 'UP', 'qps': '0.0', 'qlim': '0', 'ord': '1', 'wt': '1', 'queries': '0', 'drops': '0', 'drate': '0.0', 'lat': '0.0', 'outstanding': '0', 'pools': 'dns_internet'}, {'#': '3', 'name': 'dns1', 'address': '1.1.1.1:53', 'state': 'up', 'qps': '0.0', 'qlim': '0', 'ord': '1', 'wt': '1', 'queries': '0', 'drops': '0', 'drate': '0.0', 'lat': '0.0', 'outstanding': '0', 'pools': ''}]}
 ```
 
 ## Display dashboard

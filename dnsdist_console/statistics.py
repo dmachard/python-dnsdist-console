@@ -5,17 +5,28 @@ class Statistics:
     def __init__(self, console):
         """statistics class"""
         self.c = console
+        self.__stats__ = {"global": {}, "backends": [] }
         
-    def get(self):
+        self.fetch()
+        
+    def __repr__(self):
+        """print stats"""
+        return "%s" % self.__stats__
+        
+    def __getitem__(self, key):
+        """get stats"""
+        return self.__stats__[key]
+        
+    def fetch(self):
         """Get statistics from dnsdist"""
         
         # dump all stats
         o = self.c.send_command(cmd="dumpStats()")
-        stats = {"global": {} }
+
         for l in o.splitlines():
               r = re.findall("\S+", l)
               for i in range(0, len(r), 2):
-                   stats["global"][r[i]] = r[i+1]
+                   self.__stats__["global"][r[i]] = r[i+1]
                  
         # dump servers stats        
         o = self.c.send_command(cmd="showServers()")
@@ -36,6 +47,4 @@ class Statistics:
                     j = i        
             svr_stats.append(svr)
             
-        stats["backends"] = svr_stats
-
-        return stats
+        self.__stats__["backends"] = svr_stats
