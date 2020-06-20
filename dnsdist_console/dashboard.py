@@ -3,12 +3,13 @@ from dnsdist_console import statistics
 
 import time
 import sys
-import json
 
 class Dashboard:
     def __init__(self, console):
         """statistics class"""
         self.stats_c = statistics.Statistics(console=console)
+        
+        self.show()
         
     def show(self):
         """show dashboard updated every seconds"""
@@ -31,8 +32,7 @@ class Dashboard:
             try:
                 # get stats from dnsdist
                 stats = self.stats_c.get()
-                stats_json = json.loads(stats)
-                global_stats = stats_json["global"]
+                global_stats = stats["global"]
                 
                 qps = int(global_stats["queries"]) - prev_queries
                 prev_queries = int(global_stats["queries"])
@@ -56,7 +56,7 @@ class Dashboard:
                 for k,v in lines.items():
                     sys.stdout.write("\t%s: %s\n" % (k,v))
                 sys.stdout.write("Backends:\n")
-                for s in stats_json["backends"]:
+                for s in stats["backends"]:
                     if not len(s["name"]):
                         s["name"] = "--"
                     if not len(s["pools"]):
@@ -78,7 +78,7 @@ class Dashboard:
                 for k,v in lines.items():
                     sys.stdout.write("\x1b[1A\x1b[2K") 
                 sys.stdout.write("\x1b[1A\x1b[2K")
-                for s in stats_json["servers"]:
+                for s in stats["backends"]:
                     sys.stdout.write("\x1b[1A\x1b[2K")
                     sys.stdout.write("\x1b[1A\x1b[2K") 
                     sys.stdout.write("\x1b[1A\x1b[2K") 

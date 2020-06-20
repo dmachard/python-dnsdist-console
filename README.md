@@ -35,8 +35,7 @@ It will be used between the client and the server.
 ```python
 from dnsdist_console import Key
 
-k = Key().generate()
-print(k)
+print(Key().generate())
 OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
 ```
 
@@ -80,22 +79,12 @@ dnsdist 1.4.0
 
 ## Get statistics
 
-Get statistics from dnsdist in JSON format. 
+Get statistics from dnsdist
 
 ```python
-from dnsdist_console import Console
 from dnsdist_console import Statistics
 
-# dnsdist console
-console_ip = "10.0.0.27"
-console_port = 5199
-console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
-
-c = Console(host=console_ip, port=console_port, key=console_key)
-s = Statistics(console=c)
-                  
-stats = s.get()
-print(stats)
+print(Statistics(console=console).get())
 ```
 
 JSON output example
@@ -221,17 +210,9 @@ JSON output example
 Display dashboard for dnsdist from command line, updated every second.
 
 ```python
-from dnsdist_console import Console
 from dnsdist_console import Dashboard
 
-# dnsdist console
-console_ip = "10.0.0.27"
-console_port = 5199
-console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
-
-c = Console(host=console_ip, port=console_port, key=console_key)
-
-print(Dashboard(console=c).show())
+Dashboard(console=console)
 ```
 
 Dashboard overview

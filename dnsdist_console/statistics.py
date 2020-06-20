@@ -1,6 +1,5 @@
 
 import re
-import json
 
 class Statistics:
     def __init__(self, console):
@@ -8,7 +7,7 @@ class Statistics:
         self.c = console
         
     def get(self):
-        """Get statistics from dnsdist in JSON format"""
+        """Get statistics from dnsdist"""
         
         # dump all stats
         o = self.c.send_command(cmd="dumpStats()")
@@ -39,4 +38,4 @@ class Statistics:
             
         stats["backends"] = svr_stats
 
-        return json.dumps(stats)
+        return stats
