@@ -88,7 +88,7 @@ from dnsdist_console import Statistics
 print(Statistics(console=console).get())
 ```
 
-JSON output example
+Statistics are available as dictionnary.
 
 ```json
 {
@@ -208,7 +208,8 @@ JSON output example
 
 ## Display dashboard
 
-Display dashboard for dnsdist from command line.
+You can use this client to display a dashboard of your dnsdist from your command line.
+The dashboard is updated every second.
 
 ```python
 from dnsdist_console import Dashboard
@@ -216,7 +217,7 @@ from dnsdist_console import Dashboard
 Dashboard(console=console)
 ```
 
-Dashboard overview, updated every second.
+Run your script and you will see something like below.
 
 ```bash
 Dashboard for dnsdist
