@@ -240,28 +240,28 @@ Dashboard overview
 Dashboard for dnsdist
 
 Global:
-        Uptime (seconds): 12005
-        Number of queries: 68
+        Uptime (seconds): 47735
+        Number of queries: 0
         Query per second: 0
         ACL drops: 0
         Dynamic drops: 0
         Rule drops: 0
-        CPU Usage (%s): 3.2
+        CPU Usage (%s): 2.8
         Cache hitrate: 0
 Servers:
-        #0 / -- / dns_others
+        #0 / 10.0.0.140:53 / -- / dns_others
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0
-        #1 / -- / dns_internal
+        #1 / 10.0.0.55:53 / -- / dns_internal
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0
-        #2 / -- / dns_internet
-                Number of queries: 68
+        #2 / 8.8.8.8:53 / -- / dns_internet
+                Number of queries: 0
                 Query per second: 0.0
-                Number of drops: 2
-        #3 / dns_rpz / --
+                Number of drops: 0
+        #3 / 1.1.1.1:53 / dns_1 / --
                 Number of queries: 0
                 Query per second: 0.0
                 Number of drops: 0

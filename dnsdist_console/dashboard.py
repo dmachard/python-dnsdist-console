@@ -69,9 +69,9 @@ class Dashboard:
                         s["name"] = "--"
                     if not len(s["pools"]):
                         s["pools"] = "--"
-                    sys.stdout.write("\t#%s / %s / %s\n" % (s["#"],s["name"],s["pools"]) )
-                    sys.stdout.write("\t\tNumber of queries: %s\n" % s["#"])
-                    sys.stdout.write("\t\tQuery per second: %s\n" % s["queries"])
+                    sys.stdout.write("\t#%s / %s / %s / %s\n" % (s["#"],s["address"],s["name"],s["pools"]) )
+                    sys.stdout.write("\t\tNumber of queries: %s\n" % s["queries"])
+                    sys.stdout.write("\t\tQuery per second: %s\n" % s["qps"])
                     sys.stdout.write("\t\tNumber of drops: %s\n" % s["drops"])
                 sys.stdout.write("\n")
                 sys.stdout.write("Ctrl+C to exit\n")
