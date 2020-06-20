@@ -11,7 +11,9 @@
 | PyPI |  https://pypi.org/project/dnsdist_console/ |
 | | |
 
-This is a Python 3 client for the dnsdist console.
+This is a Python 3 client for the dnsdist console. You can use it to execute remote commands, 
+display a dashboard or easily extract statistics.
+
 
 ## Table of contents
 * [Installation](#installation)
@@ -23,26 +25,22 @@ This is a Python 3 client for the dnsdist console.
 
 ## Installation
 
+This module can be installed from [pypi](https://pypi.org/project/dnsdist_console/) website
+
 ```python
 pip install dnsdist_console
 ```
 
 ## Generate key
 
-Generate a shared secret key.
-It will be used between the client and the server.
-
-```python
-from dnsdist_console import Key
-
-print(Key().generate())
-OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
-```
+You must configure your dnsdist load balancer to accept remote connection to the console.
+This module can be used to generate the secret key as below.
 
 The command in one line 
 
 ```bash
 python3 -c "from dnsdist_console import Key;print(Key().generate())"
+OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0=
 ```
 
 Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
@@ -53,6 +51,9 @@ setKey("GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
 ```
 
 ## Handshake
+
+Configure the client with the IP address and the TCP port of your dnsdist as well as the associated secret key.
+If the provided key is incorrect, an exception will be raised.
 
 ```python
 from dnsdist_console import Console
@@ -68,7 +69,7 @@ console = Console(host=console_ip,
 
 ## Run command
 
-Please refer to the dnsdist documentation for available commands.
+Please refer to the [dnsdist documentation](https://dnsdist.org/reference/config.html) for available commands.
 
 ```python
 o = console.send_command(cmd="showVersion()")
@@ -207,7 +208,7 @@ JSON output example
 
 ## Display dashboard
 
-Display dashboard for dnsdist from command line, updated every second.
+Display dashboard for dnsdist from command line.
 
 ```python
 from dnsdist_console import Dashboard
@@ -215,7 +216,7 @@ from dnsdist_console import Dashboard
 Dashboard(console=console)
 ```
 
-Dashboard overview
+Dashboard overview, updated every second.
 
 ```bash
 Dashboard for dnsdist
