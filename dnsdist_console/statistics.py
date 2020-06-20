@@ -7,8 +7,9 @@ class Statistics:
         """statistics class"""
         self.c = console
         
-    def get_jsonstats(self):
+    def get(self):
         """Get statistics from dnsdist in JSON format"""
+        
         # dump all stats
         o = self.c.send_command(cmd="dumpStats()")
         stats = {"global": {} }
@@ -36,6 +37,6 @@ class Statistics:
                     j = i        
             svr_stats.append(svr)
             
-        stats["servers"] = svr_stats
+        stats["backends"] = svr_stats
 
         return json.dumps(stats)

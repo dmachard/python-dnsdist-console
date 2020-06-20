@@ -94,7 +94,7 @@ console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
 c = Console(host=console_ip, port=console_port, key=console_key)
 s = Statistics(console=c)
                   
-stats = s.get_jsonstats()
+stats = s.get()
 print(stats)
 ```
 
@@ -147,7 +147,7 @@ JSON output example
     "trunc-failures": "0",
     "uptime": "9973"
   },
-  "servers": [
+  "backends": [
     {
       "#": "0",
       "name": "",
@@ -248,7 +248,7 @@ Global:
         Rule drops: 0
         CPU Usage (%s): 2.8
         Cache hitrate: 0
-Servers:
+Backends:
         #0 / 10.0.0.140:53 / -- / dns_others
                 Number of queries: 0
                 Query per second: 0.0

@@ -8,7 +8,7 @@ import json
 class Dashboard:
     def __init__(self, console):
         """statistics class"""
-        self.stats_console = statistics.Statistics(console=console)
+        self.stats_c = statistics.Statistics(console=console)
         
     def show(self):
         """show dashboard updated every seconds"""
@@ -27,18 +27,10 @@ class Dashboard:
                     "Cache hitrate": "--"
                 }
 
-        # sys.stdout.write("\033[1mDashboard for dnsdist\033[0m\n")
-        # sys.stdout.write("\n")
-        # sys.stdout.write("Global:\n")
-        # for k,v in lines.items():
-            # sys.stdout.write("\t%s: %s\n" % (k,v))
-        # sys.stdout.write("\n")
-        # sys.stdout.write("Ctrl+C to exit\n")
-             
         while True:
             try:
                 # get stats from dnsdist
-                stats = self.stats_console.get_jsonstats()
+                stats = self.stats_c.get()
                 stats_json = json.loads(stats)
                 global_stats = stats_json["global"]
                 
@@ -63,8 +55,8 @@ class Dashboard:
                 sys.stdout.write("Global:\n")
                 for k,v in lines.items():
                     sys.stdout.write("\t%s: %s\n" % (k,v))
-                sys.stdout.write("Servers:\n")
-                for s in stats_json["servers"]:
+                sys.stdout.write("Backends:\n")
+                for s in stats_json["backends"]:
                     if not len(s["name"]):
                         s["name"] = "--"
                     if not len(s["pools"]):
