@@ -89,68 +89,68 @@ from dnsdist_console import Statistics
 print(Statistics(console=console))
 ```
 
-List of availables keys and descriptions:
+Statistics list of keys:
 
 - globals (dict):
-    - acl-drops
-    - latency0-1
-    - cache-hits
-    - latency1-10
-    - cache-misses
-    - latency10-50
-    - cpu-sys-msec
-    - latency100-1000
-    - cpu-user-msec
-    - latency50-100
-    - downstream-send-errors
-    - no-policy
-    - downstream-timeouts
-    - noncompliant-queries
-    - dyn-block-nmg-size
-    - noncompliant-responses
-    - dyn-blocked
-    - queries
-    - empty-queries
-    - rdqueries
-    - fd-usage
-    - real-memory-usage
-    - frontend-noerror
-    - responses
-    - frontend-nxdomain
-    - rule-drop
-    - frontend-servfail
-    - rule-nxdomain
-    - latency-avg100
-    - rule-refused
-    - latency-avg1000
-    - rule-servfail
-    - latency-avg10000
-    - security-status
-    - latency-avg1000000
-    - self-answered
-    - latency-count
-    - servfail-responses
-    - latency-slow
-    - special-memory-usage
-    - latency-sum
-    - trunc-failures
-    - uptime
+    - acl-drops: Number of packets dropped because of the ACL
+    - latency-avg100: Average response latency in microseconds of the last 100 packets
+    - latency-avg1000: Average response latency in microseconds of the last 1000 packets
+    - latency-avg10000: Average response latency in microseconds of the last 10000 packets
+    - latency-avg1000000: Average response latency in microseconds of the last 1000000 packets
+    - latency0-1: Number of queries answered in less than 1ms
+    - latency1-10: Number of queries answered in 1-10 ms
+    - latency10-50: Number of queries answered in 10-50 ms
+    - latency50-100: Number of queries answered in 50-100 ms
+    - latency100-1000: Number of queries answered in 100-1000 ms
+    - cache-hits: Number of times an answer was retrieved from cache
+    - cache-misses: Number of times an answer not found in the cache
+    - cpu-sys-msec: Milliseconds spent by dnsdist in the system state
+    - cpu-user-msec: Milliseconds spent by dnsdist in the user state
+    - downstream-send-errors: Number of errors when sending a query to a backend
+    - no-policy: Number of queries dropped because no server was available
+    - downstream-timeouts: Number of queries not answered in time by a backend
+    - noncompliant-queries: Number of queries dropped as non-compliant
+    - dyn-block-nmg-size: Number of dynamic blocks entries
+    - noncompliant-responses: Number of answers from a backend dropped as non-compliant
+    - dyn-blocked: Number of queries dropped because of a dynamic block
+    - queries: Number of received queries
+    - empty-queries: Number of empty queries received from clients
+    - rdqueries: Number of received queries with the recursion desired bit set
+    - fd-usage: Number of currently used file descriptors
+    - real-memory-usage: Current memory usage in bytes
+    - frontend-noerror: "Number of NoError answers sent to clients
+    - responses: Number of responses received from backends
+    - frontend-nxdomain: Number of NXDomain answers sent to clients
+    - rule-drop: Number of queries dropped because of a rule"
+    - frontend-servfail: Number of SERVFAIL answers sent to clients
+    - rule-nxdomain: Number of NXDomain answers returned because of a rule
+    - rule-refused: Number of Refused answers returned because of a rule
+    - rule-servfail: Number of SERVFAIL answers received because of a rule
+    - security-status: Security status of this software. 0=unknown, 1=OK, 2=upgrade recommended, 3=upgrade mandatory
+    - self-answered: Number of self-answered responses
+    - latency-count: Number of queries contributing to response time histogram
+    - servfail-responses: Number of SERVFAIL answers received from backends
+    - latency-slow: Number of queries answered in more than 1 second
+    - special-memory-usage: Memory usage (more precise)
+    - latency-sum: Total response time of all queries combined in milliseconds since the start of dnsdist
+    - trunc-failures: Number of errors encountered while truncating an answer
+    - uptime: Uptime of the dnsdist process in seconds
 
 - backends (list):
-    - #
-    - name
-    - address
-    - state
-    - qps
-    - qlim
-    - ord
-    - wt
-    - queries
-    - drops
-    - drate
-    - lat
-    - outstanding
-    - pools
+    - \#: The number of the server
+    - name: The name associated to this backend
+    - address: The IP address and port of the server
+    - state: Whether this backend is up (1) or down (0)
+    - qps: Current number of queries per second
+    - qlim: M   aximum number of queries per second
+    - ord: The order in which this server is picked
+    - wt: The weight within the order in which this server is picked
+    - queries: Amount of queries relayed to server
+    - drops: Amount of queries not answered by serve
+    - drate: Number of queries dropped per second by this server
+    - lat: Server's latency when answering questions in milliseconds
+    - outstanding: Current number of queries that are waiting for a backend response
+    - pools: The pools this server belongs to
 
 ## Display dashboard
 
