@@ -21,7 +21,7 @@ display a dashboard or easily extract statistics.
 * [Handshake](#handshake)
 * [Run command](#run-command)
 * [Get statistics](#get-statistics)
-* [Display dashboard](#display-dashboard)
+* [Display basic dashboard](#display-basic-dashboard)
 
 ## Installation
 
@@ -154,7 +154,7 @@ Statistics available:
     - outstanding: Current number of queries that are waiting for a backend response
     - pools: The pools this server belongs to
 
-## Display dashboard
+## Display basic dashboard
 
 You can use this client to display a dashboard of your dnsdist from your command line.
 The dashboard is updated every second.
