@@ -89,6 +89,28 @@ from dnsdist_console import Statistics
 s = Statistics(console=console)
 print(s["global"]["queries"])
 3993
+
+# get top queries
+print(s["top-queries"])
+[
+    {'entry': 'www.apple.com.', 'hits': '9'},
+    {'entry': 'www.facebook.com.', 'hits': '3'},
+    {'entry': 'www.microsoft.com.', 'hits': '3'}
+]
+
+
+# get top nx domain
+print(s["top-nxdomain"])
+[
+    {'entry': 'www.nxdomain.com.', 'hits': '1'}
+    
+]
+
+# get top clients
+print(s["top-clients"])
+[
+    {'entry': '127.0.0.1', 'hits': '21'}
+]
 ```
 
 Statistics available:
@@ -154,6 +176,18 @@ Statistics available:
     - outstanding: Current number of queries that are waiting for a backend response
     - pools: The pools this server belongs to
 
+- top-queries (list):
+    - entry: domain name
+    - hits: number of hit
+    
+- top-nxdomain (list):
+    - entry: non-existent domain name
+    - hits: number of hit
+    
+- top-clients (list):
+    - entry: client ip address
+    - hits: number of hit
+    
 ## Display basic dashboard
 
 You can use this client to display a dashboard of your dnsdist from your command line.
