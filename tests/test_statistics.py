@@ -1,23 +1,43 @@
 from dnsdist_console import Console
 from dnsdist_console import Statistics
+import unittest
 
-# dnsdist console
-console_ip = "10.0.0.27"
-console_port = 5199
-console_key = "OTgmgAR6zbrfrYlKgsAAJn+by4faMqI1bVCvzacXMW0="
+import dns.resolver
 
-# do hanshake
-c = Console(host=console_ip, port=console_port, key=console_key)
+                           
+my_resolver = dns.resolver.Resolver(configure=False)
+my_resolver.nameservers = ['127.0.0.1']
 
-# get global stats
-s = Statistics(console=c)
-print(s["global"]["queries"])
+r = my_resolver.resolve('www.github.com', 'a')
+try:
+    r = my_resolver.resolve('12345678', 'a')
+except dns.resolver.NXDOMAIN:
+    pass
 
-# get top queries
-print(s["top-queries"])
+class TestStatistic(unittest.TestCase):
+    def setUp(self):
+        self.console = Console(host="127.0.0.1", port=5199,
+                               key="GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
 
-# get top nx domain
-print(s["top-nxdomain"])
+    def tearDown(self):
+        self.console.disconnect()
+        
+    def test_get_global(self):
+        """get global stats"""
+        s = Statistics(console=self.console)
+        self.assertEqual(s["global"]["queries"], "2")
 
-# get top clients
-print(s["top-clients"])
+    def test_get_topqueries(self):
+        """get top queries"""
+        s = Statistics(console=self.console)
+        self.assertEqual(s["top-queries"][0]["hits"], "1")
+
+    def test_get_nxdomain(self):
+        """get nxdomain"""
+        s = Statistics(console=self.console)
+        self.assertEqual(s["top-nxdomain"][0]["hits"], "1")
+
+    def test_get_topclients(self):
+        """get top clients"""
+        s = Statistics(console=self.console)
+        self.assertEqual(s["top-clients"][0]["hits"], "2")
