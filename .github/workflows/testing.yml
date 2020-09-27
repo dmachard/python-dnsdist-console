@@ -27,7 +27,8 @@ jobs:
         sudo netstat -anp | grep dnsdist
     - name: Run Python tests
       run: |
-        sudo python3 -m pip install libnacl dnspython
+        sudo python3 -m pip install libnacl 
+        sudo python3 -m pip install --upgrade dnspython
         sudo python3 -m unittest tests.test_console
         sudo python3 -m unittest tests.test_key
         sudo python3 -m unittest tests.test_statistics
