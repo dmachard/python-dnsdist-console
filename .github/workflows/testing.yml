@@ -13,13 +13,32 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v1
       with:
-        python-version: "3.7"
     - name: Install dnsdist
       run: |
         sudo apt-get install -y dnsdist net-tools
-        sudo systemctl stop dnsdist
-    - name: Reconfigure dnsdist to enable the console
+    - id: dnsdist_version
+      run: echo "##[set-output name=data;]$(dnsdist -V | sed -n 's/^dnsdist //p' |  tr ' ' $'\n' | head -n 1)"
+    - id: python_version
+      run: echo "##[set-output name=data;]$(python3 --version | sed -n 's/^[P|y]ython //p')"
+    - name: dnsdist badge
+      uses: RubbaBoy/BYOB@v1.1.0
+      with:
+        NAME: dnsdist
+        LABEL: 'dnsdist'
+        STATUS: ${{ steps.dnsdist_version.outputs.data }}
+        COLOR: 027CB9
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Python badge
+      uses: RubbaBoy/BYOB@v1.1.0
+      with:
+        NAME: python
+        LABEL: 'Python'
+        STATUS: ${{ steps.python_version.outputs.data }}
+        COLOR: 027CB9
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Configure dnsdist
       run: |
+        sudo systemctl stop dnsdist
         sudo cp -rf tests/dnsdist.conf /etc/dnsdist/
         sudo cat /etc/dnsdist/dnsdist.conf
         sudo systemctl start dnsdist
