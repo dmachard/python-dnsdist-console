@@ -1,18 +1,11 @@
 # Python client for dnsdist console
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dnsdist-console)
-![](https://github.com/dmachard/dnsdist_console/workflows/Publish%20to%20PyPI/badge.svg)
+You can use it to execute remote commands, display a dashboard or easily extract statistics.
+
+![Build](https://github.com/dmachard/dnsdist-console/workflows/Build/badge.svg) ![Testing](https://github.com/dmachard/dnsdist-console/workflows/Testing/badge.svg)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-| | |
-| ------------- | ------------- |
-| Author |  Denis Machard <d.machard@gmail.com> 
-| License |  MIT | 
-| PyPI |  https://pypi.org/project/dnsdist_console/ |
-| | |
-
-This is a Python 3 client for the dnsdist console. You can use it to execute remote commands, 
-display a dashboard or easily extract statistics.
+![PyPI](https://github.com/dmachard/dnsdist-console/workflows/Publish%20to%20PyPI/badge.svg)
 
 
 ## Table of contents
