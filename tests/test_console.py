@@ -12,5 +12,5 @@ class TestConnect(unittest.TestCase):
     def test_show_version(self):
         """connect and get version"""             
         
-        o = console.send_command(cmd="showVersion()")
+        o = self.console.send_command(cmd="showVersion()")
         self.assertRegex(o, ".*dnsdist.*")
