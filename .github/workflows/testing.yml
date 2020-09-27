@@ -16,10 +16,11 @@ jobs:
         python-version: "3.7"
     - name: Install dnsdist
       run: |
-        sudo apt-get install -y dnsdist
+        sudo apt-get install -y dnsdist net-tools
         sudo systemctl stop dnsdist
     - name: Reconfigure dnsdist to enable the console
       run: |
+        sudo cat /etc/dnsdist/dnsdist.conf
         sudo systemctl start dnsdist
         sudo systemctl status dnsdist
         sudo netstat -anp | grep dnsdist
