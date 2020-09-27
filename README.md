@@ -11,7 +11,6 @@ You can use it to execute remote commands, display a dashboard or easily extract
 ## Table of contents
 * [Installation](#installation)
 * [Generate key](#generate-key)
-* [Handshake](#handshake)
 * [Run command](#run-command)
 * [Get statistics](#get-statistics)
 * [Display basic dashboard](#display-basic-dashboard)
@@ -43,10 +42,9 @@ controlSocket('0.0.0.0:5199')
 setKey("GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
 ```
 
-## Handshake
+## Run command
 
-Configure the client with the IP address and the TCP port of your dnsdist as well as the associated secret key.
-If the provided key is incorrect, an exception will be raised.
+Configure the client with the IP address and the TCP port of your dnsdist as well as the associated secret key. If the provided key is incorrect, an exception will be raised.
 
 ```python
 from dnsdist_console import Console
@@ -59,8 +57,6 @@ console = Console(host=console_ip,
                   port=console_port, 
                   key=console_key)
 ```
-
-## Run command
 
 Please refer to the [dnsdist documentation](https://dnsdist.org/reference/config.html) for all available commands.
 

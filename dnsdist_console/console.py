@@ -6,9 +6,7 @@ import struct
 import base64
 
 class Console:
-    def __init__(self, key,
-		       host="127.0.0.1",
-                       port=5199):
+    def __init__(self, key, host="127.0.0.1", port=5199):
         """authenticator class"""
         self.console_host = host
         self.console_port = port
