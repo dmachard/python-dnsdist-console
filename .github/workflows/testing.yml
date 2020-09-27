@@ -29,3 +29,4 @@ jobs:
       run: |
         sudo python3 -m pip install libnacl
         sudo python3 -m unittest tests.test_console
+        sudo python3 -m unittest tests.test_key
