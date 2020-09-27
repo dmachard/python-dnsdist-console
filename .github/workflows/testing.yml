@@ -27,4 +27,5 @@ jobs:
         sudo netstat -anp | grep dnsdist
     - name: Run Python tests
       run: |
+        sudo python3 -m pip install libnacl
         sudo python3 -m unittest tests.test_connect
