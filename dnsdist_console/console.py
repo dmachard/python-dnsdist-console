@@ -40,6 +40,11 @@ class Console:
         v += 1
         return v.to_bytes(4, byteorder='big') + nonce[4:]
 
+    def disconnect(self):
+        """disconnect"""
+        if self.sock is not None:
+            self.sock.close()
+        
     def connect_to(self):
         """connect to console"""
         # prepare socket
