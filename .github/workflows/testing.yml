@@ -1,0 +1,25 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.7"
+    - name: Install dnsdist
+      run: |
+        sudo apt-get install -y dnsdist
+        sudo systemctl stop dnsdist
+    - name: Reconfigure dnsdist to enable the console
+      run: |
+        sudo systemctl start dnsdist
+        sudo systemctl status dnsdist
+        sudo netstat -anp | grep dnsdist
