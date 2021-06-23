@@ -4,23 +4,27 @@ on:
   push:
     branches:
       - master
-
+  pull_request:
+    branches:
+      - main
+      
 jobs:
   release:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: "3.7"
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+
     - name: Install dnsdist
       run: |
         sudo apt-get install -y dnsdist net-tools
+
     - id: dnsdist_version
       run: echo "##[set-output name=data;]$(dnsdist -V | sed -n 's/^dnsdist //p' |  tr ' ' $'\n' | head -n 1)"
+
     - id: python_version
       run: echo "##[set-output name=data;]$(python3 --version | sed -n 's/^[P|y]ython //p')"
+
     - name: dnsdist badge
       uses: RubbaBoy/BYOB@v1.1.0
       with:
@@ -29,6 +33,7 @@ jobs:
         STATUS: ${{ steps.dnsdist_version.outputs.data }}
         COLOR: 027CB9
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Python badge
       uses: RubbaBoy/BYOB@v1.1.0
       with:
@@ -37,6 +42,7 @@ jobs:
         STATUS: ${{ steps.python_version.outputs.data }}
         COLOR: 027CB9
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Configure dnsdist
       run: |
         sudo systemctl stop dnsdist
@@ -45,6 +51,7 @@ jobs:
         sudo systemctl start dnsdist
         sudo systemctl status dnsdist
         sudo netstat -anp | grep dnsdist
+
     - name: Run Python tests
       run: |
         sudo python3 -m pip install libnacl 
