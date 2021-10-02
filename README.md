@@ -6,7 +6,7 @@ Tool to interact with your dnsdist console from Python.
 
 ## Table of contents
 * [Installation](#installation)
-* [Generate key](#generate-key)
+* [Generate console key](#generate-console-key)
 * [Run command](#run-command)
 * [Get statistics](#get-statistics)
 * [Display basic dashboard](#display-basic-dashboard)
@@ -19,7 +19,7 @@ This module can be installed from [pypi](https://pypi.org/project/dnsdist_consol
 pip install dnsdist_console
 ```
 
-## Generate key
+## Generate console key
 
 You must configure your dnsdist load balancer to accept remote connection to the console.
 This module can be used to generate the secret key as below.
@@ -36,6 +36,18 @@ Save-it in your `/etc/dnsdist/dnsdist.conf` with the `setKey` directive.
 ```
 controlSocket('0.0.0.0:5199')
 setKey("GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
+```
+
+## Generate hash password
+
+You can use this module to generate a hash for the webserver of your dnsdist.
+Since 1.7.0 the password should be hashed and salted.
+
+The command in one line 
+
+```bash
+python3 -c "from dnsdist_console import HashPassword;print(HashPassword().generate(password=\"bonjour\"))"
+$scrypt$ln=10,p=1,r=8$SZmi+pjuZ4u7L4jhXIkLww==$VRW7BuYUjSVjkjDIK6J1VB/RWx2s4gbz+YXgflWspf8=
 ```
 
 ## Run command

@@ -1,1 +1,2 @@
 libnacl==1.8.0
+scrypt==0.8.18
