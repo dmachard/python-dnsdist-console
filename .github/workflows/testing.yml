@@ -33,3 +33,4 @@ jobs:
         sudo python3 -m unittest tests.test_console
         sudo python3 -m unittest tests.test_key
         sudo python3 -m unittest tests.test_statistics
+        sudo python3 -m unittest tests.test_hashpwd
