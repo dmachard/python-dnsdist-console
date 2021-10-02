@@ -9,52 +9,26 @@ on:
       - main
       
 jobs:
-  release:
+  dnsdist:
     runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        version: [ "15", "16"]
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
-
-    - name: Install dnsdist
-      run: |
-        sudo apt-get install -y dnsdist net-tools
-
-    - id: dnsdist_version
-      run: echo "##[set-output name=data;]$(dnsdist -V | sed -n 's/^dnsdist //p' |  tr ' ' $'\n' | head -n 1)"
-
-    - id: python_version
-      run: echo "##[set-output name=data;]$(python3 --version | sed -n 's/^[P|y]ython //p')"
-
-    - name: dnsdist badge
-      uses: RubbaBoy/BYOB@v1.1.0
       with:
-        NAME: dnsdist
-        LABEL: 'dnsdist'
-        STATUS: ${{ steps.dnsdist_version.outputs.data }}
-        COLOR: 027CB9
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        python-version: "3.8"
 
-    - name: Python badge
-      uses: RubbaBoy/BYOB@v1.1.0
-      with:
-        NAME: python
-        LABEL: 'Python'
-        STATUS: ${{ steps.python_version.outputs.data }}
-        COLOR: 027CB9
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Configure dnsdist
+    - name: Deploy dnsdist docker image
       run: |
-        sudo systemctl stop dnsdist
-        sudo cp -rf tests/dnsdist.conf /etc/dnsdist/
-        sudo cat /etc/dnsdist/dnsdist.conf
-        sudo systemctl start dnsdist
-        sudo systemctl status dnsdist
-        sudo netstat -anp | grep dnsdist
+        sudo docker run -d --network="host" --name=dnsdist --volume=$PWD/tests/dnsdist.conf:/etc/dnsdist/conf.d/dnsdist.conf:ro powerdns/dnsdist-${{ matrix.version}}
 
     - name: Run Python tests
       run: |
-        sudo python3 -m pip install libnacl 
+        sudo python3 -m pip install -r requirements.txt 
         sudo python3 -m pip install --upgrade dnspython
         sudo python3 -m unittest tests.test_console
         sudo python3 -m unittest tests.test_key

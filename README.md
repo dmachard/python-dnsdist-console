@@ -2,11 +2,7 @@
 
 You can use it to execute remote commands, display a dashboard or easily extract statistics.
 
-![Build](https://github.com/dmachard/dnsdist-console/workflows/Build/badge.svg) ![Testing](https://github.com/dmachard/dnsdist-console/workflows/Testing/badge.svg) ![dnsdist](https://byob.yarr.is/dmachard//dnsdist-console/dnsdist) ![Python](https://byob.yarr.is/dmachard/dnsdist-console/python)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PyPI](https://github.com/dmachard/dnsdist-console/workflows/Publish%20to%20PyPI/badge.svg)
-
+![Build](https://github.com/dmachard/dnsdist-console/workflows/Build/badge.svg) ![Testing](https://github.com/dmachard/dnsdist-console/workflows/Testing/badge.svg) ![PyPI](https://github.com/dmachard/dnsdist-console/workflows/Publish%20to%20PyPI/badge.svg)
 
 ## Table of contents
 * [Installation](#installation)
