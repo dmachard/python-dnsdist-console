@@ -1,8 +1,8 @@
 # Python client for dnsdist console
 
-You can use it to execute remote commands, display a dashboard or easily extract statistics.
+Tool to interact with your dnsdist console from Python.
 
-![Build](https://github.com/dmachard/dnsdist-console/workflows/Build/badge.svg) ![Testing](https://github.com/dmachard/dnsdist-console/workflows/Testing/badge.svg) ![PyPI](https://github.com/dmachard/dnsdist-console/workflows/Publish%20to%20PyPI/badge.svg)
+![powerdns dnsdist 1.6.x](https://img.shields.io/badge/dnsdist%201.6.x-tested-green)
 
 ## Table of contents
 * [Installation](#installation)
