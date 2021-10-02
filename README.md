@@ -7,6 +7,7 @@ Tool to interact with your dnsdist console from Python.
 ## Table of contents
 * [Installation](#installation)
 * [Generate console key](#generate-console-key)
+* [Generate hash password](#generate-hash-password)
 * [Run command](#run-command)
 * [Get statistics](#get-statistics)
 * [Display basic dashboard](#display-basic-dashboard)
@@ -46,7 +47,7 @@ Since 1.7.0 the password should be hashed and salted.
 The command in one line 
 
 ```bash
-python3 -c "from dnsdist_console import HashPassword;print(HashPassword().generate(password=\"bonjour\"))"
+python3 -c "from dnsdist_console import HashPassword as H;print(H().generate(\"bonjour\"))"
 $scrypt$ln=10,p=1,r=8$SZmi+pjuZ4u7L4jhXIkLww==$VRW7BuYUjSVjkjDIK6J1VB/RWx2s4gbz+YXgflWspf8=
 ```
 
