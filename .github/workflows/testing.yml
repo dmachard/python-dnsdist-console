@@ -6,30 +6,34 @@ on:
       - master
   pull_request:
     branches:
-      - main
+      - master
       
 jobs:
-  dnsdist:
+  dnsdist-e2e:
     runs-on: ubuntu-20.04
 
     strategy:
       matrix:
-        version: [ "16", "17" ]
+        dnsdist: [ "dnsdist-16", "dnsdist-17" ]
+        python: [ "3.8", "3.9" ]
 
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: "3.8"
+        python-version: ${{ matrix.python}}
 
-    - name: Deploy dnsdist docker image
-      run: |
-        sudo docker run -d --network="host" --name=dnsdist --volume=$PWD/tests/dnsdist.conf:/etc/dnsdist/conf.d/dnsdist.conf:ro powerdns/dnsdist-${{ matrix.version}}
-
-    - name: Run Python tests
+    - name: Install Python requirements
       run: |
         sudo python3 -m pip install -r requirements.txt 
         sudo python3 -m pip install --upgrade dnspython
+
+    - name: Deploy dnsdist docker image
+      run: |
+        sudo docker run -d --network="host" --name=dnsdist --volume=$PWD/tests/dnsdist.conf:/etc/dnsdist/conf.d/dnsdist.conf:ro powerdns/${{ matrix.dnsdist}}
+
+    - name: Run Python tests
+      run: |
         sudo python3 -m unittest tests.test_console
         sudo python3 -m unittest tests.test_key
         sudo python3 -m unittest tests.test_statistics
