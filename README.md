@@ -2,7 +2,7 @@
 
 Tool to interact with your dnsdist console from Python.
 
-![powerdns dnsdist 1.6.x](https://img.shields.io/badge/dnsdist%201.6.x-tested-green) ![powerdns dnsdist 1.7.x](https://img.shields.io/badge/dnsdist%201.7alpha-tested-green) ![python 3.8.x](https://img.shields.io/badge/python%203.8.x-tested-blue) ![python 3.9.x](https://img.shields.io/badge/python%203.9.x-tested-blue) 
+![powerdns dnsdist 1.6.x](https://img.shields.io/badge/dnsdist%201.6.x-tested-green) ![powerdns dnsdist 1.7.x](https://img.shields.io/badge/dnsdist%201.7.x-tested-green) ![python 3.8.x](https://img.shields.io/badge/python%203.8.x-tested-blue) ![python 3.9.x](https://img.shields.io/badge/python%203.9.x-tested-blue) ![python 3.10.x](https://img.shields.io/badge/python%203.10.x-tested-blue) 
 
 ## Table of contents
 * [Installation](#installation)
