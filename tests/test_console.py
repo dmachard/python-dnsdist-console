@@ -5,7 +5,8 @@ class TestConnect(unittest.TestCase):
     def setUp(self):
         self.console = Console(host="127.0.0.1", port=5199,
                                key="GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
-                               
+        super().setUp()
+        
     def tearDown(self):
         self.console.disconnect()
         
