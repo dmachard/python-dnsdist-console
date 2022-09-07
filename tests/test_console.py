@@ -3,9 +3,12 @@ import unittest
 
 class TestConnect(unittest.TestCase):
     def setUp(self):
-        self.console = Console(host="127.0.0.1", port=5199,
-                               key="GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
-        super().setUp()
+        try:
+            self.console = Console(host="127.0.0.1", port=5199,
+                                   key="GQpEpQoIuzA6kzgwDokX9JcXPXFvO1Emg1wAXToJ0ag=")
+        except Exception as e:
+            print("error connect: %s" % e)
+            self.console.disconnect()
         
     def tearDown(self):
         self.console.disconnect()
