@@ -7,6 +7,7 @@ import dns.resolver
                            
 my_resolver = dns.resolver.Resolver(configure=False)
 my_resolver.nameservers = ['127.0.0.1']
+my_resolver.port = 5553
 
 r = my_resolver.resolve('www.github.com', 'a')
 try:
