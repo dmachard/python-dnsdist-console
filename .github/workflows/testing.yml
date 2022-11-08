@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         dnsdist: [ "dnsdist-16", "dnsdist-17" ]
-        python: [ "3.8", "3.9", "3.10" ]
+        python: [ "3.8", "3.9", "3.10", "3.11" ]
 
     steps:
     - uses: actions/checkout@v3
@@ -25,8 +25,9 @@ jobs:
 
     - name: Install Python requirements
       run: |
-        sudo python3 -m pip install -r requirements.txt 
-        sudo python3 -m pip install --upgrade dnspython
+        python --version
+        python -m pip install -r requirements.txt 
+        python -m pip install --upgrade dnspython
 
     - name: Deploy dnsdist docker image
       run: |
@@ -36,7 +37,7 @@ jobs:
         
     - name: Run Python tests
       run: |
-        sudo python3 -m unittest tests.test_console
-        sudo python3 -m unittest tests.test_key
-        sudo python3 -m unittest tests.test_statistics
-        sudo python3 -m unittest tests.test_hashpwd
+        python -m unittest tests.test_console
+        python -m unittest tests.test_key
+        python -m unittest tests.test_statistics
+        python -m unittest tests.test_hashpwd
