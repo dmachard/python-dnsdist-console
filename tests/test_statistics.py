@@ -26,21 +26,29 @@ class TestStatistic(unittest.TestCase):
     def test_get_global(self):
         """get global stats"""
         s = Statistics(console=self.console)
+
+        print(s["global"])
         self.assertGreater(int(s["global"]["queries"]), 0)
 
     def test_get_topqueries(self):
         """get top queries"""
         s = Statistics(console=self.console)
+
+        print(s["top-queries"])
         self.assertGreater(int(s["top-queries"][0]["hits"]), 0)
 
     def test_get_nxdomain(self):
         """get nxdomain"""
         s = Statistics(console=self.console)
+
+        print(s["top-nxdomain"])
         self.assertGreater(int(s["top-nxdomain"][0]["hits"]), 0)
 
     def test_get_topclients(self):
         """get top clients"""
         s = Statistics(console=self.console)
+
+        print(s["top-clients"])
         self.assertGreater(int(s["top-clients"][0]["hits"]), 0)
 
     def test_backends(self):
