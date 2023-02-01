@@ -42,3 +42,13 @@ class TestStatistic(unittest.TestCase):
         """get top clients"""
         s = Statistics(console=self.console)
         self.assertGreater(int(s["top-clients"][0]["hits"]), 0)
+
+    def test_backends(self):
+        """backends"""
+        s = Statistics(console=self.console)
+
+        # 4 backends ?
+        self.assertEqual(len(s["backends"]), 4)
+
+        for b in s["backends"]:
+            print(b)
