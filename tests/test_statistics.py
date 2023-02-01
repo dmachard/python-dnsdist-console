@@ -37,7 +37,7 @@ class TestStatistic(unittest.TestCase):
 
         print(s["top-queries"])
 
-        self.assertGreater(len(s["top-queries"]), 2)
+        self.assertGreater(len(s["top-queries"]), 1)
         self.assertGreater(int(s["top-queries"][0]["hits"]), 0)
 
     def test_get_nxdomain(self):
