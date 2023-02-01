@@ -28,13 +28,16 @@ class TestStatistic(unittest.TestCase):
         s = Statistics(console=self.console)
 
         print(s["global"])
-        self.assertGreater(int(s["global"]["queries"]), 0)
+
+        self.assertGreater(int(s["global"]["queries"]), 2)
 
     def test_get_topqueries(self):
         """get top queries"""
         s = Statistics(console=self.console)
 
         print(s["top-queries"])
+
+        self.assertGreater(len(s["top-queries"]), 2)
         self.assertGreater(int(s["top-queries"][0]["hits"]), 0)
 
     def test_get_nxdomain(self):
@@ -42,6 +45,8 @@ class TestStatistic(unittest.TestCase):
         s = Statistics(console=self.console)
 
         print(s["top-nxdomain"])
+
+        self.assertEqual(len(s["top-nxdomain"]), 1)
         self.assertGreater(int(s["top-nxdomain"][0]["hits"]), 0)
 
     def test_get_topclients(self):
@@ -49,6 +54,8 @@ class TestStatistic(unittest.TestCase):
         s = Statistics(console=self.console)
 
         print(s["top-clients"])
+
+        self.assertEqual(len(s["top-clients"]), 1)
         self.assertGreater(int(s["top-clients"][0]["hits"]), 0)
 
     def test_backends(self):
@@ -58,5 +65,13 @@ class TestStatistic(unittest.TestCase):
         # 4 backends ?
         self.assertEqual(len(s["backends"]), 4)
 
+        tc = { 
+                "0": {'Name': 'a long name with spa', 'Pools': 'a pool with spaces'},
+                "1": {'Name': 'name with spaces', 'Pools': 'apoolwithoutspaces'},
+                "2": {'Name': 'namewithoutspaces', 'Pools': 'shortpool'},
+                "3":  {'Name': 'and a long long long', 'Pools': 'a long long long long pool'}
+            }
         for b in s["backends"]:
-            print(b)
+            if b["#"] in tc:
+                self.assertEqual(b["Name"], tc[b["#"]]["Name"])
+                self.assertEqual(b["Pools"], tc[b["#"]]["Pools"])
