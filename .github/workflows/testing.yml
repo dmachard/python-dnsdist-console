@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        dnsdist: [ "dnsdist-16", "dnsdist-17" ]
+        dnsdist: [ "dnsdist-16", "dnsdist-17", "dnsdist-18"  ]
         python: [ "3.8", "3.9", "3.10", "3.11" ]
 
     steps:
