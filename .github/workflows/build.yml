@@ -20,8 +20,17 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         pip install twine jinja2
 
-    - id: pkg_version
-      run: echo "data=$(echo ${{ github.event.release.tag_name }} | cut -c2-)" >> $GITHUB_OUTPUT
+    - name: Get short commit hash
+      id: get_commit_hash
+      run: echo "data=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Get latest tag
+      id: get_latest_tag
+      run: echo "data=$(git describe --tags --abbrev=0 ${{ steps.get_commit_hash.outputs.data }})" >> $GITHUB_OUTPUT
+
+    - name: Set package version
+      id: pkg_version
+      run: echo "data=$(echo ${{ steps.get_latest_tag.outputs.data }}.post0+${{ steps.get_commit_hash.outputs.data }} | cut -c2- )" >> $GITHUB_OUTPUT
 
     - name: Build Python package
       run: |
