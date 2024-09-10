@@ -5,6 +5,9 @@ import libnacl.utils
 import struct
 import base64
 
+from dnsdist_console import util
+
+
 class Console:
     def __init__(self, key, host="127.0.0.1", port=5199):
         """authenticator class"""
@@ -46,7 +49,10 @@ class Console:
     def connect_to(self):
         """connect to console"""
         # prepare socket
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if util.is_ipv4_address(self.console_host):
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        else:
+            self.sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         self.sock.settimeout(self.sock_timeout)
 
