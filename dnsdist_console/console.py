@@ -1,12 +1,10 @@
-
 import socket
 import libnacl
 import libnacl.utils
 import struct
 import base64
-
+import time
 from dnsdist_console import util
-
 
 class Console:
     def __init__(self, key, host="127.0.0.1", port=5199):
@@ -19,12 +17,11 @@ class Console:
         self.nonce_s = None
         self.nonce_w = None
         self.nonce_r = None
-
         self.sock = None
-        self.sock_timeout = 1.0
+        self.sock_timeout = 3.0  # Increased from 1.0 to be more tolerant
         
         self.connect_to()
-
+        
     def encrypt_command(self, cmd, nonce):
         """encrypt console"""
         cmd = cmd.encode('utf-8')
@@ -40,11 +37,15 @@ class Console:
         v = int.from_bytes(nonce[:4], "big")
         v += 1
         return v.to_bytes(4, byteorder='big') + nonce[4:]
-
+        
     def disconnect(self):
         """disconnect"""
         if self.sock is not None:
-            self.sock.close()
+            try:
+                self.sock.close()
+            except:
+                pass
+            self.sock = None
         
     def connect_to(self):
         """connect to console"""
@@ -55,59 +56,85 @@ class Console:
             self.sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         self.sock.settimeout(self.sock_timeout)
-
-        # connect to the server
-        self.sock.connect((self.console_host, self.console_port))
-
-        # send our nonce
-        self.sock.send(self.nonce_c)
         
-        # waiting to receive server nonce
-        self.nonce_s = self.sock.recv(len(self.nonce_c))
-        if len(self.nonce_s) != len(self.nonce_c):
-            raise Exception("incorrect nonce size")
-  
-        # init reading and writing nonce
-        half_nonce = int(len(self.nonce_c) / 2)
-        self.nonce_r = self.nonce_c[0:half_nonce] + self.nonce_s[half_nonce:]
-        self.nonce_w = self.nonce_s[0:half_nonce] + self.nonce_c[half_nonce:]
-
-        # send empty command to check if the hanshake is ok
         try:
-              self.send_command(cmd="")
-        except Exception as e:
-              raise Exception("hanshake error: %s" % e)
-
-    def send_command(self, cmd):
-        """send command to console and return output"""
-        # encrypt command
-        encrypted_cmd = self.encrypt_command(cmd, self.nonce_w)
-        
-        # send data size header
-        self.sock.send(struct.pack("!I", len(encrypted_cmd)))
-
-        # send encrypted command
-        self.sock.send(encrypted_cmd)
-        
-        # waiting to receive data size
-        data = self.sock.recv(4)
-        if not data:
-            raise Exception("no response size received")
+            # connect to the server
+            self.sock.connect((self.console_host, self.console_port))
+            # send our nonce
+            self.sock.send(self.nonce_c)
             
-        # unpack response size
-        (response_size,) = struct.unpack("!I", data)
-
-        # waiting to response response according to the response size
-        data = self.sock.recv(response_size)
-        while len(data) < response_size:
-            data += self.sock.recv(response_size - len(data))
-
-        # decrypt data
-        r = self.decrypt_response(data, self.nonce_r)
-
-        # incremente nonce for next command
-        self.nonce_r = self.incremente_nonce(nonce=self.nonce_r)
-        self.nonce_w = self.incremente_nonce(nonce=self.nonce_w)
-
-        # return response output
-        return r
+            # waiting to receive server nonce
+            self.nonce_s = self.sock.recv(len(self.nonce_c))
+            if len(self.nonce_s) != len(self.nonce_c):
+                raise Exception("incorrect nonce size")
+      
+            # init reading and writing nonce
+            half_nonce = int(len(self.nonce_c) / 2)
+            self.nonce_r = self.nonce_c[0:half_nonce] + self.nonce_s[half_nonce:]
+            self.nonce_w = self.nonce_s[0:half_nonce] + self.nonce_c[half_nonce:]
+            # send empty command to check if the hanshake is ok
+            try:
+                  self.send_command(cmd="")
+            except Exception as e:
+                  raise Exception("hanshake error: %s" % e)
+        except Exception as e:
+            self.disconnect()
+            raise Exception(f"Connection error: {e}")
+            
+    def reconnect_if_needed(self):
+        """Check connection and reconnect if necessary"""
+        if self.sock is None:
+            self.connect_to()
+            return True
+        return False
+            
+    def send_command(self, cmd, max_retries=2):
+        """send command to console and return output with auto-reconnect"""
+        retries = 0
+        last_error = None
+        
+        while retries <= max_retries:
+            try:
+                # Try to reconnect if socket is None
+                self.reconnect_if_needed()
+                
+                # encrypt command
+                encrypted_cmd = self.encrypt_command(cmd, self.nonce_w)
+                
+                # send data size header
+                self.sock.send(struct.pack("!I", len(encrypted_cmd)))
+                # send encrypted command
+                self.sock.send(encrypted_cmd)
+                
+                # waiting to receive data size
+                data = self.sock.recv(4)
+                if not data:
+                    raise Exception("no response size received")
+                    
+                # unpack response size
+                (response_size,) = struct.unpack("!I", data)
+                # waiting to response response according to the response size
+                data = self.sock.recv(response_size)
+                while len(data) < response_size:
+                    data += self.sock.recv(response_size - len(data))
+                # decrypt data
+                r = self.decrypt_response(data, self.nonce_r)
+                # incremente nonce for next command
+                self.nonce_r = self.incremente_nonce(nonce=self.nonce_r)
+                self.nonce_w = self.incremente_nonce(nonce=self.nonce_w)
+                # return response output
+                return r
+            except (BrokenPipeError, socket.error) as e:
+                # Socket related error - attempt reconnection
+                last_error = e
+                retries += 1
+                self.disconnect()
+                if retries <= max_retries:
+                    time.sleep(1)  # Small delay before retry
+                    # Will reconnect on next loop iteration
+            except Exception as e:
+                # Other errors, just raise
+                raise Exception(f"Command error: {e}")
+                
+        # If we get here, we've exhausted our retries
+        raise Exception(f"Failed after {max_retries} retries: {last_error}")
